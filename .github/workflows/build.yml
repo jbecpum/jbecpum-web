@@ -37,7 +37,7 @@ jobs:
       - name: Build & Send webhook
         run: |
           deno task build
-          # curl -X POST -d {} "https://webhooks.amplify.ap-southeast-1.amazonaws.com/prod/webhooks?id=$WEBHOOK_ID&token=$TOKEN&operation=startbuild" -H "Content-Type:application/json"
+          curl -X POST -d {} "https://webhooks.amplify.ap-southeast-1.amazonaws.com/prod/webhooks?id=$WEBHOOK_ID&token=$TOKEN&operation=startbuild" -H "Content-Type:application/json"
         env:
           WEBHOOK_ID: ${{ vars.WEBHOOK_ID }}
           TOKEN: ${{ secrets.TOKEN }}
