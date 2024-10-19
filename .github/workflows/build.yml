@@ -48,4 +48,4 @@ jobs:
           BRANCH_NAME: ${{ vars.BRANCH_NAME }}
           AMPLIFY_APP_ID: ${{ vars.AMPLIFY_APP_ID }}
           WEBHOOK_ID: ${{ vars.WEBHOOK_ID }}
-          TOKEN: ${{ vars.TOKEN }}
+          TOKEN: ${{ secrets.TOKEN }}
