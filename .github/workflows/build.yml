@@ -37,12 +37,11 @@ jobs:
       # - name: Run tests
       #   run: deno test -A
 
-      # - name: Build
-      #   run: deno task build
+      - name: Build
+        run: deno task build
 
       - name: Deploy
         run: |
-          echo "branch: $BRANCH_NAME"
           curl -X POST -d {} "https://webhooks.amplify.ap-southeast-1.amazonaws.com/prod/webhooks?id=$WEBHOOK_ID&token=$TOKEN&operation=startbuild" -H "Content-Type:application/json"
         env:
           BRANCH_NAME: ${{ vars.BRANCH_NAME }}
