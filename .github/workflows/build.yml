@@ -23,6 +23,7 @@ jobs:
         uses: denoland/setup-deno@v2
         with:
           deno-version: v2.x
+
       - name: Install dependencies
         run: deno install
 
@@ -40,6 +41,11 @@ jobs:
         run: deno task build
 
       - name: Deploy
+        env:
+          BRANCH_NAME: ${{ vars.BRANCH_NAME }}
+          AMPLIFY_APP_ID: ${{ vars.AMPLIFY_APP_ID }}
+          WEBHOOK_ID: ${{ vars.WEBHOOK_ID }}
+          TOKEN: ${{ vars.TOKEN }}
         run: |
-          npx ampx pipeline-deploy --branch ${{ vars.BRANCH_NAME }} --app-id ${{ vars.AMPLIFY_APP_ID }}
-          curl -X POST -d {} "https://webhooks.amplify.ap-southeast-1.amazonaws.com/prod/webhooks?id=${{ vars.WEBHOOK_ID }}&token=${{ vars.TOKEN }}&operation=startbuild" -H "Content-Type:application/json"
+          npx ampx pipeline-deploy --branch $BRANCH_NAME --app-id $AMPLIFY_APP_ID
+          curl -X POST -d {} "https://webhooks.amplify.ap-southeast-1.amazonaws.com/prod/webhooks?id=$WEBHOOK_ID&token=$TOKEN&operation=startbuild" -H "Content-Type:application/json"
