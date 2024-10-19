@@ -1,0 +1,43 @@
+# This workflow will install Deno then run `deno lint` and `deno test`.
+# For more information see: https://github.com/denoland/setup-deno
+name: Deno
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup repo
+        uses: actions/checkout@v4
+
+      - name: Setup Deno
+        uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+
+      # Uncomment this step to verify the use of 'deno fmt' on each commit.
+      # - name: Verify formatting
+      #   run: deno fmt --check
+
+      - name: Run linter
+        run: deno task lint
+
+      # - name: Run tests
+      #   run: deno test -A
+
+      - name: Build
+        run: deno task build
+
+      - name: Deploy
+        run: |
+          npx ampx pipeline-deploy --branch ${{ vars.BRANCH_NAME }} --app-id ${{ vars.AMPLIFY_APP_ID }}
+          curl -X POST -d {} "https://webhooks.amplify.ap-southeast-1.amazonaws.com/prod/webhooks?id=${{ vars.WEBHOOK_ID }}&token=${{ vars.TOKEN }}&operation=startbuild" -H "Content-Type:application/json"
