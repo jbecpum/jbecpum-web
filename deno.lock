@@ -2259,12 +2259,17 @@
         "npm:@types/node@20",
         "npm:@types/react-dom@18",
         "npm:@types/react@18",
+        "npm:class-variance-authority@0.7",
+        "npm:clsx@^2.1.1",
         "npm:eslint-config-next@14.2.15",
         "npm:eslint@8",
+        "npm:lucide-react@0.453",
         "npm:next@14.2.15",
         "npm:postcss@8",
         "npm:react-dom@18",
         "npm:react@18",
+        "npm:tailwind-merge@^2.5.4",
+        "npm:tailwindcss-animate@^1.0.7",
         "npm:tailwindcss@^3.4.1",
         "npm:typescript@5"
       ]
