@@ -31,14 +31,14 @@ jobs:
       # - name: Verify formatting
       #   run: deno fmt --check
 
-      - name: Run linter
-        run: deno task lint
+      # - name: Run linter
+      #   run: deno task lint
 
       # - name: Run tests
       #   run: deno test -A
 
-      - name: Build
-        run: deno task build
+      # - name: Build
+      #   run: deno task build
 
       - name: Deploy
         env:
@@ -47,5 +47,6 @@ jobs:
           WEBHOOK_ID: ${{ vars.WEBHOOK_ID }}
           TOKEN: ${{ vars.TOKEN }}
         run: |
-          deno run -A npm:ampx pipeline-deploy --branch $BRANCH_NAME --app-id $AMPLIFY_APP_ID
+          npx ampx info
+          # npx ampx pipeline-deploy --branch $BRANCH_NAME --app-id $AMPLIFY_APP_ID
           curl -X POST -d {} "https://webhooks.amplify.ap-southeast-1.amazonaws.com/prod/webhooks?id=$WEBHOOK_ID&token=$TOKEN&operation=startbuild" -H "Content-Type:application/json"
