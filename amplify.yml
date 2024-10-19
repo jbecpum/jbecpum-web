@@ -5,10 +5,11 @@ frontend:
       commands:
         - curl -fsSL https://deno.land/x/install/install.sh | sh
         - /root/.deno/bin/deno install
-        - DENO_DIR=deno_dir
     build:
       commands:
         - /root/.deno/bin/deno task build
+        - rm -f node_modules/@swc/core-linux-x64-gnu/swc.linux-x64-gnu.node
+        - rm -f node_modules/@swc/core-linux-x64-musl/swc.linux-x64-musl.node
   artifacts:
     baseDirectory: .next
     files:
@@ -17,4 +18,3 @@ frontend:
     paths:
       - ".next/cache/**/*"
       - "node_modules/**/*"
-      - "deno_dir/**/*"
