@@ -6,7 +6,8 @@
     "build": "next build",
     "dev": "next dev",
     "lint": "next lint",
-    "start": "next start"
+    "start": "next start",
+    "sso": "aws sso login --sso-session=jbecpum"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.0",

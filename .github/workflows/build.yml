@@ -1,6 +1,4 @@
-# This workflow will install Deno then run `deno lint` and `deno test`.
-# For more information see: https://github.com/denoland/setup-deno
-name: Deno
+name: Deploy
 
 on:
   push:
@@ -9,35 +7,33 @@ on:
     branches: ["main"]
 
 jobs:
-  test:
+  deploy:
     runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_DEFAULT_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_DEFAULT_ACCOUNT_ID }}
 
     steps:
-      - name: Setup repo
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Deno
-        uses: denoland/setup-deno@v2
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
         with:
-          deno-version: v2.x
+          version: 9
+          run_install: false
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "pnpm"
 
       - name: Install dependencies
-        run: deno install
+        run: pnpm install --frozen-lockfile
 
-      # Uncomment this step to verify the use of 'deno fmt' on each commit.
-      # - name: Verify formatting
-      #   run: deno fmt --check
-
-      - name: Run linter
-        run: deno task lint
-
-      # - name: Run tests
-      #   run: deno test -A
-
-      - name: Build & Send webhook
+      - name: Deploy
         run: |
-          deno task build
-          curl -X POST -d {} "https://webhooks.amplify.ap-southeast-1.amazonaws.com/prod/webhooks?id=$WEBHOOK_ID&token=$TOKEN&operation=startbuild" -H "Content-Type:application/json"
-        env:
-          WEBHOOK_ID: ${{ vars.WEBHOOK_ID }}
-          TOKEN: ${{ secrets.TOKEN }}
+          pnpm dlx sst deploy --stage production
