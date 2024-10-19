@@ -9,8 +9,6 @@ export default $config({
     };
   },
   async run() {
-    new sst.aws.Nextjs("jbecp", {
-      domain: "jbecpum.org",
-    });
+    new sst.aws.Nextjs("jbecpum");
   },
 });
