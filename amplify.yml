@@ -1,0 +1,19 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - curl -fsSL https://deno.land/x/install/install.sh | sh
+        - DENO_DIR=deno_dir
+    build:
+      commands:
+        - /root/.deno/bin/deno task build
+  artifacts:
+    baseDirectory: .next
+    files:
+      - "**/*"
+  cache:
+    paths:
+      - ".next/cache/**/*"
+      - "node_modules/**/*"
+      - "deno_dir/**/*"
