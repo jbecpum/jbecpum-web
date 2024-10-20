@@ -13,11 +13,21 @@ export default $config({
   },
   async run() {
     new sst.aws.Nextjs("jbecpum", {
-      domain: {
-        name: "jbecpum.org",
-        redirects: ["www.jbecpum.org"],
-        dns: sst.cloudflare.dns({ zone: process.env.CLOUDFLARE_ZONE_ID }),
-      },
+      domain:
+        $app.stage === "production"
+          ? {
+              name: "jbecpum.org",
+              redirects: ["www.jbecpum.org"],
+              dns: sst.cloudflare.dns({ zone: process.env.CLOUDFLARE_ZONE_ID }),
+            }
+          : $app.stage === "staging"
+            ? {
+                name: "staging.jbecpum.org",
+                dns: sst.cloudflare.dns({
+                  zone: process.env.CLOUDFLARE_ZONE_ID,
+                }),
+              }
+            : undefined,
     });
   },
 });
