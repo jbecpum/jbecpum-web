@@ -51,4 +51,4 @@ jobs:
 
       - name: Deploy
         run: |
-          CLOUDFLARE_ZONE_ID=${{ secrets.CLOUDFLARE_ZONE_ID }} pnpm dlx sst deploy --stage production
+          CLOUDFLARE_ZONE_ID=${{ secrets.CLOUDFLARE_ZONE_ID }} pnpm dlx sst deploy --stage production --print-logs
