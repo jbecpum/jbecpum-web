@@ -47,4 +47,5 @@ jobs:
 
       - name: Deploy
         run: |
+          pnpm dlx sst unlock
           CLOUDFLARE_ZONE_ID=${{ secrets.CLOUDFLARE_ZONE_ID }} pnpm dlx sst deploy --stage staging
