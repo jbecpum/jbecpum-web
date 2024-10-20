@@ -5,11 +5,11 @@ export default $config({
       name: "jbecpum-web",
       removal: input?.stage === "prod" ? "retain" : "remove",
       home: "aws",
-      providers: {
-        aws: {
-          profile: input?.stage === "prod" ? "prod" : "dev",
-        },
-      },
+      // providers: {
+      //   aws: {
+      //     profile: input?.stage === "prod" ? "prod" : "dev",
+      //   },
+      // },
     };
   },
   async run() {
