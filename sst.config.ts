@@ -7,7 +7,7 @@ export default $config({
       home: "aws",
       providers: {
         aws: {
-          profile: input?.stage === "prod" ? "production" : "dev",
+          profile: input?.stage === "prod" ? "prod" : "dev",
         },
       },
     };
