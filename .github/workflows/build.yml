@@ -20,7 +20,7 @@ jobs:
         with:
           audience: sts.amazonaws.com.cn
           aws-region: ap-southeast-1
-          role-to-assume: ${{ AWS_ROLE_TO_ASSUME }}
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
 
       - name: Checkout
         uses: actions/checkout@v4
