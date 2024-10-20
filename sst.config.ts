@@ -3,11 +3,11 @@ export default $config({
   app(input) {
     return {
       name: "jbecpum-web",
-      removal: input?.stage === "production" ? "retain" : "remove",
+      removal: input?.stage === "prod" ? "retain" : "remove",
       home: "aws",
       providers: {
         aws: {
-          profile: input?.stage === "production" ? "production" : "dev",
+          profile: input?.stage === "prod" ? "production" : "dev",
         },
       },
     };
