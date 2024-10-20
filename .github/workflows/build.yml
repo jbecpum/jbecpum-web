@@ -45,15 +45,6 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      # - name: Configure credentials
-      #   run: |
-      #     aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID --profile production
-      #     aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY --profile production
-      #     aws configure set region ap-southeast-1 --profile production
-      #   env:
-      #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
       - name: Deploy
         run: |
-          CLOUDFLARE_ZONE_ID=${{ secrets.CLOUDFLARE_ZONE_ID }} pnpm dlx sst deploy --print-logs --verbose
+          CLOUDFLARE_ZONE_ID=${{ secrets.CLOUDFLARE_ZONE_ID }} pnpm dlx sst deploy --stage dev
