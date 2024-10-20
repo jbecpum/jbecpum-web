@@ -5,9 +5,5 @@ import "sst"
 export {}
 declare module "sst" {
   export interface Resource {
-    "jbecpum": {
-      "type": "sst.aws.Nextjs"
-      "url": string
-    }
   }
 }
